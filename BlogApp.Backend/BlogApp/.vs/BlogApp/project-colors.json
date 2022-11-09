@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "aa57b98d-bbba-4cf4-869f-764203e75e4b": {
+      "ProjectGuid": "aa57b98d-bbba-4cf4-869f-764203e75e4b",
+      "DisplayName": "BlogApp.Api",
+      "ColorIndex": 0
+    },
+    "06918a8c-5de2-4e1c-b01a-c9954a941116": {
+      "ProjectGuid": "06918a8c-5de2-4e1c-b01a-c9954a941116",
+      "DisplayName": "BlogApp.Logic",
+      "ColorIndex": 1
+    },
+    "28e3d4ff-72ce-49a2-9db0-b54f2d65b917": {
+      "ProjectGuid": "28e3d4ff-72ce-49a2-9db0-b54f2d65b917",
+      "DisplayName": "BlogApp.Data",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
