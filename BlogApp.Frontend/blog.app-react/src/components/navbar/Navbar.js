@@ -18,7 +18,7 @@ const Navbar = () => {
             <Link className="nav-item nav-link shadow" to="/addpost">Add post</Link>
           </div>
           <div className="navbar-nav">
-            <Link className="nav-item nav-link shadow">Login</Link>
+            <Link className="nav-item nav-link shadow" to="/login">Login</Link>
           </div>
         </div>
       </nav>
