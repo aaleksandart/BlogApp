@@ -1,30 +1,72 @@
 import React from 'react'
+import DOMPurify from 'dompurify'
+
+//Hook
+import UseForm from './UseForm.js'
+
+//Validation
+import FormValidation from './FormValidation.js'
 
 const PostsForm = () => {
+
+    const { handleChange, handleSubmit, formValues, formErrors } = UseForm(submitPost, FormValidation)
+
+    function submitPost() {
+        let jsonPost = JSON.stringify({
+            postTitle: DOMPurify.sanitize(formValues.postTitle),
+            postBody: DOMPurify.sanitize(formValues.postBody),
+            imageUrl: DOMPurify.sanitize(formValues.imageUrl)
+        })
+
+        async function postPost() {
+            let result;
+            const connErrors = document.getElementById('connError');
+
+            try {
+                result = await fetch('', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: jsonPost
+                });
+            } catch (e) {
+                console.log(e);
+            }
+            console.log(result.status)
+            if (result.status === 200) {
+                connErrors.classList.add('d-none')
+                window.location.replace('http://localhost:3000/')
+            } else {
+                connErrors.classList.add('d-block')
+            }
+        }
+        postPost();
+    }
+
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='input-comp'>
                     <label htmlFor="">Post title</label>
-                    <input className='shadow' type="text" />
-                    {/* <span className='error-message'>Error</span> */}
+                    <input id='postTitle' name='postTitle' className='shadow' type="text" value={formValues.postTitle} onChange={handleChange} />
+                    {formErrors.postTitle && <small className="text-danger ms-1">{formErrors.postTitle}</small>}
                 </div>
                 <div className='input-comp'>
                     <label htmlFor="">Post</label>
-                    <textarea className='shadow' type="text" />
-                    {/* <span className='error-message'>Error</span> */}
+                    <textarea id='postBody' name='postBody' className='shadow' type="text" value={formValues.postBody} onChange={handleChange} />
+                    {formErrors.postBody && <small className="text-danger ms-1">{formErrors.postBody}</small>}
                 </div>
                 <div className='input-comp'>
                     <label htmlFor="">Image URL</label>
-                    <input className='shadow' type="text" />
-                    {/* <span className='error-message'>Error</span> */}
-                </div>
-                <div className='shadow' id='error-messages'>
-                    <p id='post-title-error' className='error-message'>You need a post title.</p>
-                    <p id='post-error' className='error-message'>You need to fill in the post field.</p>
-                    <p id='image-url-error' className='error-message'>You need a valid image url.</p>
+                    <input id='imageUrl' name='imageUrl' className='shadow' type="text" value={formValues.imageUrl} onChange={handleChange} />
+                    {formErrors.imageUrl && <small className="text-danger ms-1">{formErrors.imageUrl}</small>}
                 </div>
                 <button className='shadow' id='submitPost'>Submit</button>
+                <div id='connError' className='connError shadow'>
+                    <span id='connErrorText'>Database connection error. Save not completed.</span>
+                </div>
             </form>
         </>
     )

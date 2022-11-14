@@ -6,7 +6,7 @@ const Navbar = () => {
     <>
 
       <nav className="navbar-bg navbar navbar-expand-lg navbar-light bg-light py-3 px-3">
-        <i class="fa-solid fa-blog"></i>
+        <i className="fa-solid fa-blog"></i>
         <Link className="navbar-brand" to="/" href="#">BlogApp</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

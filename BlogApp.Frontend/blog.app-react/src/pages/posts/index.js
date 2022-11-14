@@ -1,13 +1,12 @@
-import React from 'react'
+//Components
+import Posts from '../../components/shared/Posts.js'
 
 const index = () => {
     return (
         <>
-                <div className='posts-container'>
-                    <h3>Posts</h3>
-                    <div className='post'>New post</div>
-                    <div className='post'>New post</div>
-                </div>
+            <div className='posts-page'>
+                <Posts />
+            </div>
         </>
     )
 }
