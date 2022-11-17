@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import DOMPurify from 'dompurify';
 
 //Components
 import Post from './Post.js'
@@ -9,12 +8,13 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         async function getPosts() {
-            const postsResult = await fetch('');
+            const postsResult = await fetch('https://localhost:7222/api/Posts');
             setPosts(await postsResult.json());
+            console.log(posts)
         }
         getPosts();
-    }, []);
-
+    }, [])
+    console.log(posts)
     return (
         <>
             <div className='posts-container'>
@@ -22,7 +22,7 @@ const Posts = () => {
                 <div id='posts-grid'>
                     {
                         posts && posts.map(post => (
-                            <div key={post.id}>
+                            <div >
                                 <Post post={post} />
                             </div>
                         ))

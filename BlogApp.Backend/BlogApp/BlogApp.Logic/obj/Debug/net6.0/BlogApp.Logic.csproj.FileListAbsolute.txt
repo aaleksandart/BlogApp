@@ -1,0 +1,15 @@
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\BlogApp.Logic.deps.json
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\BlogApp.Logic.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\ref\BlogApp.Logic.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\BlogApp.Logic.pdb
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\BlogApp.Data.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\bin\Debug\net6.0\BlogApp.Data.pdb
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.csproj.AssemblyReference.cache
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.AssemblyInfoInputs.cache
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.AssemblyInfo.cs
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.csproj.CoreCompileInputs.cache
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.csproj.CopyComplete
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\ref\BlogApp.Logic.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Logic\obj\Debug\net6.0\BlogApp.Logic.pdb

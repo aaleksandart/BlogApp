@@ -1,10 +1,13 @@
 import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Navbar = () => {
+
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  console.log(isAuthenticated, user)
   return (
     <>
-
       <nav className="navbar-bg navbar navbar-expand-lg navbar-light bg-light py-3 px-3">
         <i className="fa-solid fa-blog"></i>
         <Link className="navbar-brand" to="/" href="#">BlogApp</Link>
@@ -12,13 +15,15 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse p-2 justify-content-between" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <Link id='first-navlink' className="nav-item nav-link shadow" to="/">Home</Link>
-            <Link className="nav-item nav-link shadow" to="/posts" >Posts</Link>
-            <Link className="nav-item nav-link shadow" to="/addpost">Add post</Link>
-          </div>
-          <div className="navbar-nav">
-            <Link className="nav-item nav-link shadow" to="/login">Login</Link>
+            <div className="navbar-nav">
+              <Link id='first-navlink' className="nav-item nav-link shadow" to="/">Home</Link>
+              <Link className="nav-item nav-link shadow" to="/posts" >Posts</Link>
+              <Link className="nav-item nav-link shadow" to="/addpost">Add post</Link>
+            </div>
+          <div className="navbar-nav auth-buttons">
+            {!isAuthenticated && <Link className="nav-item nav-link shadow" onClick={() => loginWithRedirect()}>Login</Link>}
+            {isAuthenticated && <Link className="nav-item nav-link shadow" to='/profile'>Profile</Link>}
+            {isAuthenticated && <Link className="nav-item nav-link shadow" onClick={() => logout({returnTo: window.location.origin})}>Logout</Link>}
           </div>
         </div>
       </nav>

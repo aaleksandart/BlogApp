@@ -23,7 +23,7 @@ const PostsForm = () => {
             const connErrors = document.getElementById('connError');
 
             try {
-                result = await fetch('', {
+                result = await fetch('https://localhost:7222/api/Posts', {
                     method: 'post',
                     headers: {
                         'Accept': 'application/json',
