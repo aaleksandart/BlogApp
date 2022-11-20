@@ -66,12 +66,14 @@ namespace BlogApp.Logic.Services
             return entityList;
         }
 
-        public IEnumerable<T> ValidateList<T>(IEnumerable<T> list)
+        public bool Validate(PostModel model)
         {
-            if(list == null)
-                return new List<T>();
-
-            return list;
+            if (model.PostTitle == null
+                || model.PostBody == null
+                || model.ImageUrl == null)
+                return false;
+            else
+                return true;
         }
     }
 }

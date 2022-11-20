@@ -1,12 +1,14 @@
 using BlogApp.Data;
+using BlogApp.Data.Entities;
 using BlogApp.Logic;
 using BlogApp.Logic.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddScoped<IDataLayer, DataLayer>();
+builder.Services.AddScoped<IDataLayer, DataLayer> ();
 builder.Services.AddScoped<ILogicLayer, LogicLayer>();
 builder.Services.AddScoped<ILogicService, LogicService>();
 

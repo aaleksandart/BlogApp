@@ -12,9 +12,12 @@ namespace BlogApp.Data.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
-        public string? PostTitle { get; set; }
-        public string? PostBody { get; set; }
-        public string? ImageUrl { get; set; }
+        public string Id { get; set; } = null!;
+        [BsonRequired]
+        public string PostTitle { get; set; } = null!;
+        [BsonRequired]
+        public string PostBody { get; set; } = null!;
+        [BsonRequired]
+        public string ImageUrl { get; set; } = null!;
     }
 }

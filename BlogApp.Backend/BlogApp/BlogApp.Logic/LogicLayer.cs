@@ -25,9 +25,11 @@ namespace BlogApp.Logic
             try
             {
                 var entityList = await _data.GetPostsAsync();
+                if(entityList == null)
+                    return new List<DisplayPostModel>();
+
                 var modelList = _service.ConvertToModelList(entityList);
-                var validatedModelList = _service.ValidateList(modelList);
-                return validatedModelList;
+                return modelList;
             }
             catch
             {
@@ -41,6 +43,9 @@ namespace BlogApp.Logic
             try
             {
                 var entity = await _data.GetPostAsync(id);
+                if(entity == null)
+                    return new DisplayPostModel();
+
                 var model = _service.ConvertToModel(entity);
                 return model;
             }
@@ -53,6 +58,9 @@ namespace BlogApp.Logic
         {
             try
             {
+                if(!_service.Validate(newPost))
+                    return false;
+
                 var entity = _service.ConvertToEntity(newPost);
                 await _data.CreatePostAsync(entity);
             }
@@ -68,7 +76,7 @@ namespace BlogApp.Logic
             try
             {
                 var exist = await GetPostAsync(id);
-                if ( exist.Id == null)
+                if (exist.Id == null)
                     return false;
 
                 var updateEntity = _service.ConvertToEntity(updatePost);

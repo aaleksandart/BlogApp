@@ -1,5 +1,8 @@
-import React from 'react'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import PostsForm from '../../components/forms/PostsForm.js'
+
+//Components
+import Load from '../../components/shared/Load.js'
 
 const index = () => {
     return (
@@ -14,4 +17,6 @@ const index = () => {
     )
 }
 
-export default index
+export default withAuthenticationRequired(index, {
+    onRedirecting: () => <Load/>
+})

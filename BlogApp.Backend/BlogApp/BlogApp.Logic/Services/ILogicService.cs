@@ -14,6 +14,6 @@ namespace BlogApp.Logic.Services
         PostEntity ConvertToEntity(PostModel postModel);
         IEnumerable<DisplayPostModel> ConvertToModelList(IEnumerable<PostEntity> postEntityList);
         IEnumerable<PostEntity> ConvertToEntityList(IEnumerable<DisplayPostModel> postModelList);
-        IEnumerable<T> ValidateList<T>(IEnumerable<T> listToValidate);
+        bool Validate(PostModel model);
     }
 }

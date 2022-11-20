@@ -1,5 +1,6 @@
 import React from 'react'
 import DOMPurify from 'dompurify'
+import { useAuth0 } from '@auth0/auth0-react'
 
 //Hook
 import UseForm from './UseForm.js'
@@ -10,6 +11,7 @@ import FormValidation from './FormValidation.js'
 const PostsForm = () => {
 
     const { handleChange, handleSubmit, formValues, formErrors } = UseForm(submitPost, FormValidation)
+    const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
 
     function submitPost() {
         let jsonPost = JSON.stringify({
@@ -22,12 +24,17 @@ const PostsForm = () => {
             let result;
             const connErrors = document.getElementById('connError');
 
+            const aToken = getAccessTokenSilently();
+            const idToken = await getIdTokenClaims();
+            console.log(aToken)
+            console.log(idToken)
+
             try {
                 result = await fetch('https://localhost:7222/api/Posts', {
                     method: 'post',
                     headers: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json'
+                        "Content-Type": "application/json",
+                        "Authorization": `bearer ${aToken}`
                     },
                     body: jsonPost
                 });

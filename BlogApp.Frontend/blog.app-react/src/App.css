@@ -399,3 +399,71 @@ h4 {
     margin-top: 2rem;
   }
 }
+
+/* Load */
+.load-page {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(25, 25, 61, 0.801);
+  display: grid;
+  place-items: center;
+}
+
+.load-page i {
+  font-size: 4rem;
+  color: white;
+}
+
+/* Add picture  */
+.add-picture-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12rem;
+}
+
+.add-picture-container {
+  background-color: #f3f7f4;
+  height: 600px;
+  width: 500px;
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .add-picture-page {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .add-picture-container {
+    max-width: 95%;
+    margin-top: 2rem;
+  }
+}
+
+.add-picture-container h3 {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: #16123F;
+  margin-bottom: 1rem;
+}
+
+#submitPicture {
+  width: 100%;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  background-color: #16123F;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 1rem;
+}
+
+#img-upload span{
+  color: white;
+}

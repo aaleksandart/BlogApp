@@ -43,3 +43,10 @@ C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\obj\Debug\net
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\obj\Debug\net6.0\ref\BlogApp.Api.dll
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\obj\Debug\net6.0\BlogApp.Api.pdb
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\obj\Debug\net6.0\BlogApp.Api.genruntimeconfig.cache
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
