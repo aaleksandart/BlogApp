@@ -11,7 +11,7 @@ import FormValidation from './FormValidation.js'
 const PostsForm = () => {
 
     const { handleChange, handleSubmit, formValues, formErrors } = UseForm(submitPost, FormValidation)
-    const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
 
     function submitPost() {
         let jsonPost = JSON.stringify({
@@ -23,18 +23,14 @@ const PostsForm = () => {
         async function postPost() {
             let result;
             const connErrors = document.getElementById('connError');
-
-            const aToken = getAccessTokenSilently();
-            const idToken = await getIdTokenClaims();
-            console.log(aToken)
-            console.log(idToken)
+            const aToken = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
 
             try {
                 result = await fetch('https://localhost:7222/api/Posts', {
                     method: 'post',
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `bearer ${aToken}`
+                        'content-Type': 'application/json',
+                        'authorization': `bearer ${aToken}`
                     },
                     body: jsonPost
                 });

@@ -10,11 +10,9 @@ const Posts = () => {
         async function getPosts() {
             const postsResult = await fetch('https://localhost:7222/api/Posts');
             setPosts(await postsResult.json());
-            console.log(posts)
         }
         getPosts();
     }, [])
-    console.log(posts)
     return (
         <>
             <div className='posts-container'>
@@ -23,7 +21,7 @@ const Posts = () => {
                     {
                         posts && posts.map(post => (
                             <div >
-                                <Post post={post} />
+                                <Post key={post.id} post={post} />
                             </div>
                         ))
                     }

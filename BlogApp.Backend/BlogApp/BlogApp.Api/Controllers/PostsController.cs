@@ -1,5 +1,6 @@
 ﻿using BlogApp.Logic;
 using BlogApp.Logic.Models.Posts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -37,6 +38,7 @@ namespace BlogApp.Api.Controllers
                 return Ok(success);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<bool>> CreatePostAsync(PostModel newPost)
         {
