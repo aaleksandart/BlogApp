@@ -492,3 +492,7 @@ h4 {
   max-width: 90px;
   border-radius: 0;
 }
+
+.picture-error {
+  text-align: center;
+}

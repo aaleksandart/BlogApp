@@ -23,7 +23,6 @@ namespace BlogApp.Logic
 
         #region Pictures
         Task<IActionResult> UploadPictureAsync(PictureModel picture);
-        Task<Byte[]> GetPictureAsync();
 
         #endregion
     }

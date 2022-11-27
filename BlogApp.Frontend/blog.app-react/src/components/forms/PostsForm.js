@@ -43,14 +43,13 @@ const PostsForm = () => {
                 connErrors.classList.add('d-block')
             } else {
                 if (result.status === 201) {
-                    console.log("created")
-                    connErrors.classList.add('d-none')
-                    saveSuccess.classList.add('d-block')
+                    connErrors.classList.add('d-none');
+                    saveSuccess.classList.add('d-block');
                     setTimeout(() => {
                         window.location.reload()
-                    }, 5000);
+                    }, 4000);
                 } else {
-                    connErrors.classList.add('d-block')
+                    connErrors.classList.add('d-block');
                 }
             }
         }

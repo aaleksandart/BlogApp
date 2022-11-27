@@ -7,6 +7,7 @@ using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +18,6 @@ namespace BlogApp.Data
         private readonly IMongoCollection<PostEntity> _postsCollection;
         private readonly IMongoCollection<PictureEntity> _picturesCollection;
         private readonly IGridFSBucket _bucket;
-        private readonly IMongoCollection<BsonDocument> _files;
-        private readonly IMongoCollection<BsonDocument> _chunks;
         public DataLayer(IOptions<DatabaseSettings> databaseSettings)
         {
             var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
@@ -26,8 +25,6 @@ namespace BlogApp.Data
             _postsCollection = mongoDatabase.GetCollection<PostEntity>(databaseSettings.Value.PostsCollectionName);
             _picturesCollection = mongoDatabase.GetCollection<PictureEntity>(databaseSettings.Value.PicturesCollectionName);
             _bucket = new GridFSBucket(mongoDatabase, new GridFSBucketOptions { BucketName = "PictureBucket" });
-            _files = mongoDatabase.GetCollection<BsonDocument>("PictureBucket.files");
-            _chunks = mongoDatabase.GetCollection<BsonDocument>("PictureBucket.chunks");
         }
 
         #region Posts
@@ -48,25 +45,8 @@ namespace BlogApp.Data
         #endregion
 
         #region Pictures
-
         public async Task<ObjectId> UploadAsync(Stream stream, string fileName) =>
             await _bucket.UploadFromStreamAsync(fileName, stream);
-
-        public async Task<Byte[]> GetPictureAsync(ObjectId id)
-        {
-            var byteArray = await _bucket.DownloadAsBytesAsync(id);
-            MemoryStream memory = new MemoryStream();
-            await _bucket.DownloadToStreamAsync(id, memory);
-
-            var chunkBytes = await _chunks.Find(id => true).FirstOrDefaultAsync();
-            var fileBytes = await _files.Find(id => true).FirstOrDefaultAsync();
-            var data = chunkBytes.Elements.ElementAt(3);
-            //var dataValue = Convert.ToByte(data.Value.ToString());
-            //var dataName = Convert.ToByte(data.Name.ToString());
-
-
-            return byteArray;
-        }
 
         #endregion
 

@@ -20,7 +20,6 @@ namespace BlogApp.Data
 
         #region Pictures
         Task<ObjectId> UploadAsync(Stream stream, string fileName);
-        Task<Byte[]> GetPictureAsync(ObjectId id);
 
         #endregion
     }

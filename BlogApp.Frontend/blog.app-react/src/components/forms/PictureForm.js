@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
-import As from '../../assets/images/avatar.png'
 
 const PictureForm = () => {
 
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const defaultPicture = require('../../assets/images/avatar.png')
     const [pictureSrc, setPictureSrc] = useState(defaultPicture);
-    const [pictureData, setPictureData] = useState()
-    const [pictureUrl, setPictureUrl] = useState(null)
+    const [pictureData, setPictureData] = useState();
+
+    const [formErrors, setFormErrors] = useState({ pictureError: '' });
 
     const setPicture = (e) => {
         let fileReader = new FileReader()
@@ -19,10 +19,14 @@ const PictureForm = () => {
         }
         setPictureData(e.target.files[0])
     }
+
     const submitPicture = async (e) => {
         e.preventDefault()
 
+        validateFormError();
         let result;
+        const connErrors = document.getElementById('connPictureError');
+        const saveSuccess = document.getElementById('connPictureSuccess');
         const aToken = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
 
         const formData = new FormData()
@@ -39,20 +43,30 @@ const PictureForm = () => {
         } catch (e) {
             console.log(e);
         }
-        console.log(await result.json())
-        console.log(result)
-        // async function getPicture() {
-        //     let pictureResult = await fetch('https://localhost:7222/api/Pictures');
-        //     console.log(await pictureResult);
-        //     console.log(result.result[1])
-        //     console.log(await pictureResult.json()[2].FileContents);
-        //     let byteReader = new FileReader()
-        //     byteReader.readAsBinaryString(await pictureResult.json()[1])
-        // }
-        // getPicture();
-        // setPictureUrl(result.pictureData)
+        if (result === undefined) {
+            connErrors.classList.add('d-block')
+        } else {
+            if (result.status === 200) {
+                connErrors.classList.add('d-none');
+                saveSuccess.classList.add('d-block');
+                setTimeout(() => {
+                    window.location.reload()
+                }, 4000);
+            } else if (result.status === 400) {
+                validateFormError();
+            } else {
+                connErrors.classList.add('d-block');
+            }
+        }
     }
 
+    function validateFormError() {
+        if (pictureData === undefined) {
+            setFormErrors({ pictureError: "You need a file." });
+        } else {
+            setFormErrors({ pictureError: "" });
+        }
+    }
 
     return (
         <>
@@ -70,22 +84,20 @@ const PictureForm = () => {
                     }
                 </div>
 
-                <div className='input-comp'>
+                <div className='input-comp picture-error'>
                     <label htmlFor='img-upload'>Choose a file(.png or .jpg)</label>
                     <input className='shadow' id='img-upload' name='img-upload' type="file" accept='image/png, image/jpeg' onChange={setPicture} />
+                    {formErrors.pictureError && <small id='picture-error' className="text-danger ms-1">{formErrors.pictureError}</small>}
                 </div>
 
                 <button className='shadow' id='submitPicture'>Submit</button>
+                <div id='connPictureError' className='connError shadow'>
+                    <span>Database connection error. Save not completed.</span>
+                </div>
+                <div id='connPictureSuccess' className='saveSuccess shadow'>
+                    <span>Your post was succesfully saved.</span>
+                </div>
             </form>
-
-            {
-                // pictureUrl &&
-                // <div className='card'>
-                //     <div className="i-container">
-                //         <img src={pictureUrl} alt="" />
-                //     </div>
-                // </div>
-            }
         </>
     )
 }

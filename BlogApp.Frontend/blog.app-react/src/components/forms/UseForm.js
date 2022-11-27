@@ -23,20 +23,19 @@ const UseForm = (submitPost, formValidation) => {
             ...formValues,
             [name]: value
         });
-        setSubmitted(false)
+        setSubmitted(false);
     };
 
     //Sanitizing input values
     const sanitizeFormValues = () => {
-        formValues.postTitle = DOMPurify.sanitize(formValues.postTitle)
-        formValues.postBody = DOMPurify.sanitize(formValues.postBody)
-        formValues.imageUrl = DOMPurify.sanitize(formValues.imageUrl)
-        console.log(formValues)
+        formValues.postTitle = DOMPurify.sanitize(formValues.postTitle);
+        formValues.postBody = DOMPurify.sanitize(formValues.postBody);
+        formValues.imageUrl = DOMPurify.sanitize(formValues.imageUrl);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        sanitizeFormValues()
+        sanitizeFormValues();
         setFormErrors(formValidation(formValues));
         setSubmitted(true);
     }

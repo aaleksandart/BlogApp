@@ -137,7 +137,6 @@ namespace BlogApp.Logic
                     return StatusCode(500);
                 else
                     return new OkObjectResult(id);
-                    //return Created("", null);
             }
             catch (Exception ex)
             {
@@ -145,14 +144,6 @@ namespace BlogApp.Logic
                 return StatusCode(500);
             }
             
-        }
-
-        public async Task<Byte[]> GetPictureAsync()
-        {
-            ObjectId id = new ObjectId("6380097370670a17c6a3f49c");
-            var byteArray = await _data.GetPictureAsync(id);
-            
-            return byteArray;
         }
 
         #endregion

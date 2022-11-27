@@ -8,9 +8,9 @@ import Load from '../../components/shared/Load.js'
 const index = () => {
   return (
     <>
-        <div className='profile-page'>
-            <UserProfile />
-        </div>
+      <div className='profile-page'>
+        <UserProfile />
+      </div>
     </>
   )
 }
