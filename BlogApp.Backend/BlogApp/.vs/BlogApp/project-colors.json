@@ -15,6 +15,11 @@
       "ProjectGuid": "28e3d4ff-72ce-49a2-9db0-b54f2d65b917",
       "DisplayName": "BlogApp.Data",
       "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 3

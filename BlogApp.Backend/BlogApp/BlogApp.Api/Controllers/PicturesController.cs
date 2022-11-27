@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlogApp.Logic;
+using BlogApp.Logic.Models.Pictures;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,25 @@ namespace BlogApp.Api.Controllers
     [ApiController]
     public class PicturesController : ControllerBase
     {
-        // GET: api/<PicturesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ILogicLayer _logic;
+        public PicturesController(ILogicLayer logic)
         {
-            return new string[] { "value1", "value2" };
+            _logic = logic;
         }
 
-        // GET api/<PicturesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<PicturesController>
         [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        public async Task<IActionResult> UploadPictureAsync([FromForm] PictureModel newPicture) =>
+            await _logic.UploadPictureAsync(newPicture);
 
-        // PUT api/<PicturesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet]
+        public async Task<IActionResult> GetPictureAsync()
         {
-        }
-
-        // DELETE api/<PicturesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            //var data = await _logic.GetPictureAsync();
+            //return new OkObjectResult(data);
+            var file = File(await _logic.GetPictureAsync(), "image/*");
+            FileContentResult formFile = file;
+            return new OkObjectResult(formFile);
+            //return new OkObjectResult(File(await _logic.GetPictureAsync(), "image/svg"));
         }
     }
 }

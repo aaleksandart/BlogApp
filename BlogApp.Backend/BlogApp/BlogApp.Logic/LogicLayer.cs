@@ -1,16 +1,22 @@
 ﻿using BlogApp.Data;
 using BlogApp.Data.Entities;
+using BlogApp.Logic.Models.Pictures;
 using BlogApp.Logic.Models.Posts;
 using BlogApp.Logic.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BlogApp.Logic
 {
-    public class LogicLayer : ILogicLayer
+    public class LogicLayer : ControllerBase, ILogicLayer
     {
         private readonly IDataLayer _data;
         private readonly ILogicService _service;
@@ -20,15 +26,21 @@ namespace BlogApp.Logic
             _service = service;
         }
 
+        #region Posts
         public async Task<IEnumerable<DisplayPostModel>> GetPostsAsync()
         {
             try
             {
                 var entityList = await _data.GetPostsAsync();
-                if(entityList == null)
+                foreach (var entity in entityList)
+                {
+                    entity.PostBody = _service.EncodeBody(entity.PostBody);
+                }
+
+                if (entityList == null)
                     return new List<DisplayPostModel>();
 
-                var modelList = _service.ConvertToModelList(entityList);
+                var modelList = _service.ConvertToPostModels(entityList);
                 return modelList;
             }
             catch
@@ -46,7 +58,7 @@ namespace BlogApp.Logic
                 if(entity == null)
                     return new DisplayPostModel();
 
-                var model = _service.ConvertToModel(entity);
+                var model = _service.ConvertToPostModel(entity);
                 return model;
             }
             catch
@@ -58,10 +70,10 @@ namespace BlogApp.Logic
         {
             try
             {
-                if(!_service.Validate(newPost))
+                if(!_service.ValidatePost(newPost))
                     return false;
 
-                var entity = _service.ConvertToEntity(newPost);
+                var entity = _service.ConvertToPostEntity(newPost);
                 await _data.CreatePostAsync(entity);
             }
             catch
@@ -79,7 +91,7 @@ namespace BlogApp.Logic
                 if (exist.Id == null)
                     return false;
 
-                var updateEntity = _service.ConvertToEntity(updatePost);
+                var updateEntity = _service.ConvertToPostEntity(updatePost);
                 await _data.UpdatePostAsync(id, updateEntity);
             }
             catch
@@ -105,5 +117,44 @@ namespace BlogApp.Logic
             }
             return true;
         }
+        #endregion
+
+        #region Pictures
+
+        public async Task<IActionResult> UploadPictureAsync(PictureModel picture)
+        {
+            try
+            {
+                using var stream = picture.File.OpenReadStream();
+                var fileExtension = Path.GetExtension(picture.File.FileName);
+                if (_service.ValidateExtension(fileExtension) == false)
+                    return BadRequest("File extension not permitted.");
+
+                var fileName = $"BlogApp-IMG_{Guid.NewGuid()}{fileExtension}";
+
+                var id = await _data.UploadAsync(stream, fileName);
+                if (_service.ValidateId(id) == false)
+                    return StatusCode(500);
+                else
+                    return new OkObjectResult(id);
+                    //return Created("", null);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return StatusCode(500);
+            }
+            
+        }
+
+        public async Task<Byte[]> GetPictureAsync()
+        {
+            ObjectId id = new ObjectId("6380097370670a17c6a3f49c");
+            var byteArray = await _data.GetPictureAsync(id);
+            
+            return byteArray;
+        }
+
+        #endregion
     }
 }

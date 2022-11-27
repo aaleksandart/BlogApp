@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogApp.Logic.Models.Pictures
+namespace BlogApp.Data.Entities
 {
-    public class DisplayPictureModel
+    public class PictureEntityModel
     {
-        public string Id { get; set; } = null!;
-        public IFormFile File { get; set; } = null!;
+        public byte[] File { get; set; } = null!;
         public string? UploadedBy { get; set; }
     }
 }

@@ -2,6 +2,7 @@ import DOMPurify from 'dompurify';
 import { useState, useEffect } from 'react';
 
 const UseForm = (submitPost, formValidation) => {
+
     const [formValues, setFormValues] = useState({
         postTitle: '',
         postBody: '',
@@ -25,15 +26,17 @@ const UseForm = (submitPost, formValidation) => {
         setSubmitted(false)
     };
 
-    const purifyFormValues = () => {
+    //Sanitizing input values
+    const sanitizeFormValues = () => {
         formValues.postTitle = DOMPurify.sanitize(formValues.postTitle)
         formValues.postBody = DOMPurify.sanitize(formValues.postBody)
         formValues.imageUrl = DOMPurify.sanitize(formValues.imageUrl)
+        console.log(formValues)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        purifyFormValues()
+        sanitizeFormValues()
         setFormErrors(formValidation(formValues));
         setSubmitted(true);
     }

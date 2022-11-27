@@ -50,3 +50,7 @@ C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\aleks\Desktop\BlogApp\BlogApp.Backend\BlogApp\BlogApp.Api\bin\Debug\net6.0\MongoDB.Driver.GridFS.dll

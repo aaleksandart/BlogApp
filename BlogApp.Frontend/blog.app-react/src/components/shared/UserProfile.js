@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const UserProfile = () => {
 
+  //Displaying user info collected from Auth0
   const { logout, user, isAuthenticated } = useAuth0();
   return (
     <>

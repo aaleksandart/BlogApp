@@ -1,4 +1,5 @@
 ﻿using BlogApp.Data.Entities;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,9 @@ namespace BlogApp.Data
         #endregion
 
         #region Pictures
-        Task<IEnumerable<PictureEntity>> GetPicturesAsync();
-        Task<PictureEntity> GetPictureAsync(string id);
-        Task CreatePictureAsync(PictureEntity newPost);
-        Task UpdatePictureAsync(string id, PictureEntity updateEntity);
-        Task DeletePictureAsync(string id);
+        Task<ObjectId> UploadAsync(Stream stream, string fileName);
+        Task<Byte[]> GetPictureAsync(ObjectId id);
+
         #endregion
     }
 }

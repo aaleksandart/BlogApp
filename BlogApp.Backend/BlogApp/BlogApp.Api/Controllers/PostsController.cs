@@ -16,7 +16,6 @@ namespace BlogApp.Api.Controllers
         {
             _logic = logic;
         }
-
         
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DisplayPostModel>>> GetPostsAsync()
@@ -47,7 +46,8 @@ namespace BlogApp.Api.Controllers
             if (success == false)
                 return StatusCode(500, success);
             else
-                return Ok(success);
+                //return Ok(success);
+                return Created("", null);
         }
 
         [HttpPut("{id}")]

@@ -1,5 +1,4 @@
-import DOMPurify from "dompurify";
-
+//Validation form post form
 export default function validateForm(values) {
     let errors = {};
 

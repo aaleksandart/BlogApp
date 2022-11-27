@@ -10,6 +10,7 @@ import FormValidation from './FormValidation.js'
 
 const PostsForm = () => {
 
+    //UseForm handles changes and submit of the form
     const { handleChange, handleSubmit, formValues, formErrors } = UseForm(submitPost, FormValidation)
     const { getAccessTokenSilently } = useAuth0();
 
@@ -23,6 +24,7 @@ const PostsForm = () => {
         async function postPost() {
             let result;
             const connErrors = document.getElementById('connError');
+            const saveSuccess = document.getElementById('saveSuccess');
             const aToken = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
 
             try {
@@ -37,12 +39,19 @@ const PostsForm = () => {
             } catch (e) {
                 console.log(e);
             }
-            console.log(result.status)
-            if (result.status === 200) {
-                connErrors.classList.add('d-none')
-                window.location.replace('http://localhost:3000/')
-            } else {
+            if (result === undefined) {
                 connErrors.classList.add('d-block')
+            } else {
+                if (result.status === 201) {
+                    console.log("created")
+                    connErrors.classList.add('d-none')
+                    saveSuccess.classList.add('d-block')
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 5000);
+                } else {
+                    connErrors.classList.add('d-block')
+                }
             }
         }
         postPost();
@@ -69,6 +78,9 @@ const PostsForm = () => {
                 <button className='shadow' id='submitPost'>Submit</button>
                 <div id='connError' className='connError shadow'>
                     <span id='connErrorText'>Database connection error. Save not completed.</span>
+                </div>
+                <div id='saveSuccess' className='saveSuccess shadow'>
+                    <span id='saveSuccessText'>Your post was succesfully saved.</span>
                 </div>
             </form>
         </>

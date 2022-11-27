@@ -3,28 +3,39 @@ import DOMPurify from 'dompurify'
 
 const Post = ({ post }) => {
 
-    function checkPost(post) {
-        post.postTitle = DOMPurify.sanitize(post.postTitle)
-        post.postBody = DOMPurify.sanitize(post.postBody)
-        post.imageUrl = DOMPurify.sanitize(post.imageUrl)
+    //Sanitizing and validating post before display
+    //Setting default image if image url is not ok
+    function sanitizePost(post) {
+        post.PostTitle = DOMPurify.sanitize(post.PostTitle)
+        post.PostBody = DOMPurify.sanitize(post.PostBody)
+        post.ImageUrl = DOMPurify.sanitize(post.ImageUrl)
 
-        if (post.imageUrl === null || post.imageUrl.length === 0) {
-            post.imageUrl = 'https://images.pexels.com/photos/163077/mario-yoschi-figures-funny-163077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        }
+        validatePost(post)
         return post;
     }
-    checkPost(post)
 
-    function setImage(post) {
-        post.imageUrl = 'https://images.pexels.com/photos/163077/mario-yoschi-figures-funny-163077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    function validatePost(post) {
+        if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(post.ImageUrl)) {
+            post.ImageUrl = 'https://images.pexels.com/photos/163077/mario-yoschi-figures-funny-163077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+        }
+        if (post.PostTitle === null || post.PostTitle === "") {
+            post.PostTitle = "Post Title"
+        }
+        if (post.PostBody === null || post.PostBody === "") {
+            post.PostBody = "Post Body"
+        }
+        return post
     }
+
+    sanitizePost(post)
+
     return (
         <>
             <div className='post shadow'>
                 <h4>{post.PostTitle}</h4>
                 <div className='post-image-body'>
                     <div className='image-container'>
-                        <img src={post.ImageUrl} onError={setImage(post)} alt='' />
+                        <img id='post-image' src={post.ImageUrl} alt='' />
                     </div>
                     <div className='post-body' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.PostBody) }}>
                     </div>

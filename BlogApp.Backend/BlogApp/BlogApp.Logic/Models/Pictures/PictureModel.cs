@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Logic.Models.Pictures
 {
-    public class DisplayPictureModel
+    public class PictureModel
     {
-        public string Id { get; set; } = null!;
         public IFormFile File { get; set; } = null!;
         public string? UploadedBy { get; set; }
     }

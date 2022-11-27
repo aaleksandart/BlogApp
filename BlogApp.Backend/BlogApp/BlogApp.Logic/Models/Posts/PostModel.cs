@@ -8,8 +8,8 @@ namespace BlogApp.Logic.Models.Posts
 {
     public class PostModel
     {
-        public string? PostTitle { get; set; }
-        public string? PostBody { get; set; }
-        public string? ImageUrl { get; set; }
+        public string PostTitle { get; set; } = null!;
+        public string PostBody { get; set; } = null!;
+        public string ImageUrl { get; set; } = null!;
     }
 }

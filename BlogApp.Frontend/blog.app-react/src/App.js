@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import DOMPurify from 'dompurify'
 import './App.css';
 
 //Components
@@ -16,6 +17,13 @@ import Profile from './pages/profile/index.js'
 import NoAuth from './pages/noauth/index.js'
 
 function App() {
+
+  //Setting sanitize settings to allow <b> and <i> tags
+  const WHITELISTED_TAGS = ['b', 'i']
+  DOMPurify.setConfig({
+    ALLOWED_TAGS: WHITELISTED_TAGS
+  })
+
   return (
     <>
       <Routes>
@@ -23,7 +31,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='posts' element={<Posts />} />
           <Route path='addpost' element={<RouteSecurity component={AddPost} />} />
-          <Route path='addpicture' element={<AddPicture />} />
+          <Route path='addpicture' element={<RouteSecurity component={AddPicture} />} />
           <Route path='profile' element={<Profile />} />
           <Route path='noAuth' element={<NoAuth />} />
         </Route>

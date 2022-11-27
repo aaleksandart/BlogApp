@@ -5,6 +5,7 @@ import Post from './Post.js'
 
 const Posts = () => {
 
+    //Getting all posts from db and mapping them in post component
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         async function getPosts() {
@@ -13,6 +14,7 @@ const Posts = () => {
         }
         getPosts();
     }, [])
+
     return (
         <>
             <div className='posts-container'>
@@ -20,9 +22,7 @@ const Posts = () => {
                 <div id='posts-grid'>
                     {
                         posts && posts.map(post => (
-                            <div >
-                                <Post key={post.id} post={post} />
-                            </div>
+                            <Post key={post.Id} post={post} />
                         ))
                     }
                 </div>

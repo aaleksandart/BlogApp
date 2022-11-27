@@ -1,6 +1,9 @@
 ﻿using BlogApp.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +16,18 @@ namespace BlogApp.Data
     {
         private readonly IMongoCollection<PostEntity> _postsCollection;
         private readonly IMongoCollection<PictureEntity> _picturesCollection;
+        private readonly IGridFSBucket _bucket;
+        private readonly IMongoCollection<BsonDocument> _files;
+        private readonly IMongoCollection<BsonDocument> _chunks;
         public DataLayer(IOptions<DatabaseSettings> databaseSettings)
         {
             var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
             _postsCollection = mongoDatabase.GetCollection<PostEntity>(databaseSettings.Value.PostsCollectionName);
             _picturesCollection = mongoDatabase.GetCollection<PictureEntity>(databaseSettings.Value.PicturesCollectionName);
+            _bucket = new GridFSBucket(mongoDatabase, new GridFSBucketOptions { BucketName = "PictureBucket" });
+            _files = mongoDatabase.GetCollection<BsonDocument>("PictureBucket.files");
+            _chunks = mongoDatabase.GetCollection<BsonDocument>("PictureBucket.chunks");
         }
 
         #region Posts
@@ -39,20 +48,26 @@ namespace BlogApp.Data
         #endregion
 
         #region Pictures
-        public async Task<IEnumerable<PictureEntity>> GetPicturesAsync() =>
-            await _picturesCollection.Find(_ => true).ToListAsync();
 
-        public async Task<PictureEntity> GetPictureAsync(string id) =>
-            await _picturesCollection.Find(pic => pic.Id == id).FirstOrDefaultAsync();
+        public async Task<ObjectId> UploadAsync(Stream stream, string fileName) =>
+            await _bucket.UploadFromStreamAsync(fileName, stream);
 
-        public async Task CreatePictureAsync(PictureEntity newPicture) =>
-            await _picturesCollection.InsertOneAsync(newPicture);
+        public async Task<Byte[]> GetPictureAsync(ObjectId id)
+        {
+            var byteArray = await _bucket.DownloadAsBytesAsync(id);
+            MemoryStream memory = new MemoryStream();
+            await _bucket.DownloadToStreamAsync(id, memory);
 
-        public async Task UpdatePictureAsync(string id, PictureEntity updatePicture) =>
-            await _picturesCollection.ReplaceOneAsync(pic => pic.Id == id, updatePicture);
+            var chunkBytes = await _chunks.Find(id => true).FirstOrDefaultAsync();
+            var fileBytes = await _files.Find(id => true).FirstOrDefaultAsync();
+            var data = chunkBytes.Elements.ElementAt(3);
+            //var dataValue = Convert.ToByte(data.Value.ToString());
+            //var dataName = Convert.ToByte(data.Name.ToString());
 
-        public async Task DeletePictureAsync(string id) =>
-           await _picturesCollection.DeleteOneAsync(p => p.Id == id);
+
+            return byteArray;
+        }
+
         #endregion
 
     }

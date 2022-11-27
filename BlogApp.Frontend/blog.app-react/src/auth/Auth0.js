@@ -17,7 +17,8 @@ const Auth0 = ({ children }) => {
             domain={domain}
             clientId={clientId}
             redirectUri={window.location.origin}
-            audience={audience}>
+            audience={audience}
+            onRedirectCallback={onRedirectCallback}>
             {children}
         </Auth0Provider>
     )
