@@ -16,14 +16,12 @@ namespace BlogApp.Data
     public class DataLayer : IDataLayer
     {
         private readonly IMongoCollection<PostEntity> _postsCollection;
-        private readonly IMongoCollection<PictureEntity> _picturesCollection;
         private readonly IGridFSBucket _bucket;
         public DataLayer(IOptions<DatabaseSettings> databaseSettings)
         {
             var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
             _postsCollection = mongoDatabase.GetCollection<PostEntity>(databaseSettings.Value.PostsCollectionName);
-            _picturesCollection = mongoDatabase.GetCollection<PictureEntity>(databaseSettings.Value.PicturesCollectionName);
             _bucket = new GridFSBucket(mongoDatabase, new GridFSBucketOptions { BucketName = "PictureBucket" });
         }
 
